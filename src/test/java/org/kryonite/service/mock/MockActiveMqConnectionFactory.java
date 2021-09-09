@@ -1,4 +1,4 @@
-package org.kryonite.service;
+package org.kryonite.service.mock;
 
 import com.github.fridujo.rabbitmq.mock.MockConnectionFactory;
 import com.rabbitmq.client.Connection;

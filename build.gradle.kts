@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     api("com.rabbitmq:amqp-client:5.13.0")
-    implementation("org.slf4j:slf4j-simple:1.7.32")
+    api("org.mongojack:mongojack:4.2.1")
 
     compileOnly("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")

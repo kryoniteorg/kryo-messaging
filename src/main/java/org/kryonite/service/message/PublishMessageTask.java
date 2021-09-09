@@ -1,11 +1,12 @@
-package org.kryonite.service;
+package org.kryonite.service.message;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.kryonite.util.CustomObjectMapper;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Queue;
 import java.util.TimerTask;
 
@@ -13,7 +14,9 @@ import java.util.TimerTask;
 @RequiredArgsConstructor
 public class PublishMessageTask extends TimerTask {
 
-  private final Queue<Message> queue;
+  private static final ObjectMapper objectMapper = CustomObjectMapper.create();
+
+  private final Queue<Message<?>> queue;
   private final Channel publishChannel;
 
   @Override
@@ -21,13 +24,13 @@ public class PublishMessageTask extends TimerTask {
     if (!publishChannel.isOpen()) {
       log.error("Channel is not open. Trying to reconnect!");
     } else {
-      Message message = queue.poll();
+      Message<?> message = queue.poll();
       if (message == null) {
         return;
       }
 
       try {
-        byte[] body = message.getMessage().getBytes(StandardCharsets.UTF_8);
+        byte[] body = objectMapper.writeValueAsBytes(message.getBody());
         publishChannel.basicPublish(message.getExchange(), message.getRoutingKey(), null, body);
       } catch (IOException e) {
         log.error("Got an exception while trying to publish message!");

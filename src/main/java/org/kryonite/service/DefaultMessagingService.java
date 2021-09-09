@@ -1,5 +1,6 @@
 package org.kryonite.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -10,9 +11,12 @@ import com.rabbitmq.client.Envelope;
 import lombok.extern.slf4j.Slf4j;
 import org.kryonite.api.ActiveMqConnectionFactory;
 import org.kryonite.api.MessagingService;
+import org.kryonite.service.message.Message;
+import org.kryonite.service.message.MessageCallback;
+import org.kryonite.service.message.PublishMessageTask;
+import org.kryonite.util.CustomObjectMapper;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Timer;
@@ -23,8 +27,9 @@ import java.util.concurrent.TimeoutException;
 public class DefaultMessagingService implements MessagingService {
 
   private static final Map<String, Object> arguments = Map.of("x-queue-type", "quorum");
+  private static final ObjectMapper objectMapper = CustomObjectMapper.create();
 
-  private final Queue<Message> queue = new ConcurrentLinkedQueue<>();
+  private final Queue<Message<?>> queue = new ConcurrentLinkedQueue<>();
   private final Channel channel;
 
   public DefaultMessagingService(ActiveMqConnectionFactory connectionFactory) throws IOException, TimeoutException {
@@ -36,7 +41,7 @@ public class DefaultMessagingService implements MessagingService {
   }
 
   @Override
-  public void sendMessage(Message message) {
+  public void sendMessage(Message<?> message) {
     queue.add(message);
   }
 
@@ -57,8 +62,10 @@ public class DefaultMessagingService implements MessagingService {
   }
 
   @Override
-  public void startConsuming(String queue, MessageCallback callback) throws IOException {
-    DeliverCallback deliverCallback = (consumerTag, delivery) -> handleMessage(delivery, callback);
+  public <T> void startConsuming(String queue,
+                                 MessageCallback<T> callback,
+                                 Class<T> classOfCallback) throws IOException {
+    DeliverCallback deliverCallback = (consumerTag, delivery) -> handleMessage(delivery, callback, classOfCallback);
     ConsumerShutdownSignalCallback consumerShutdownSignalCallback = (consumerTag, sig) ->
         log.error("Consumer shutdown unexpectedly!", sig);
 
@@ -66,16 +73,23 @@ public class DefaultMessagingService implements MessagingService {
     channel.basicConsume(queue, false, deliverCallback, consumerShutdownSignalCallback);
   }
 
-  private void handleMessage(Delivery delivery, MessageCallback callback) throws IOException {
+  private <T> void handleMessage(Delivery delivery,
+                                 MessageCallback<T> callback,
+                                 Class<T> classOfCallback) {
     if (!channel.isOpen()) {
       return;
     }
     Envelope envelope = delivery.getEnvelope();
-    channel.basicAck(envelope.getDeliveryTag(), false);
 
     String exchange = envelope.getExchange();
-    String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
-    String routingKey = envelope.getRoutingKey();
-    callback.messageReceived(Message.create(exchange, message, routingKey));
+    try {
+      T body = objectMapper.readValue(delivery.getBody(), classOfCallback);
+      String routingKey = envelope.getRoutingKey();
+      callback.messageReceived(Message.create(exchange, body, routingKey));
+
+      channel.basicAck(envelope.getDeliveryTag(), false);
+    } catch (IOException exception) {
+      log.error("Failed to consume message!", exception);
+    }
   }
 }
