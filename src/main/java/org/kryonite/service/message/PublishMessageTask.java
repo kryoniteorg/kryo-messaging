@@ -33,7 +33,7 @@ public class PublishMessageTask extends TimerTask {
         byte[] body = objectMapper.writeValueAsBytes(message.getBody());
         publishChannel.basicPublish(message.getExchange(), message.getRoutingKey(), null, body);
       } catch (IOException e) {
-        log.error("Got an exception while trying to publish message!");
+        log.error("Got an exception while trying to publish message!", e);
         queue.add(message);
       }
     }
