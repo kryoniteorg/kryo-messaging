@@ -13,7 +13,7 @@ jobs:
         run: ./gradlew javadoc
       - name: Extract release ✂️
         shell: bash
-        run: echo "##[set-output name=release;]$(echo ${GITHUB_REF#refs/heads/releases})"
+        run: echo "##[set-output name=release;]$(echo ${GITHUB_REF#refs/tags/})"
         id: extract_release
       - name: Deploy latest docs 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
