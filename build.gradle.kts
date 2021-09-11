@@ -1,20 +1,25 @@
 plugins {
-    java
+    `java-library`
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
-group = "org.kryonitelabs"
-version = "0.1.0"
+group = "org.kryonite"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    api("com.rabbitmq:amqp-client:5.13.0")
+    api("org.mongojack:mongojack:4.2.1")
+
     compileOnly("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
+    testImplementation("com.github.fridujo:rabbitmq-mock:1.1.1")
+    testImplementation("org.slf4j:slf4j-simple:1.7.32")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.2")
     testImplementation("org.mockito:mockito-junit-jupiter:3.12.4")
