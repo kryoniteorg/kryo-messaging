@@ -27,7 +27,7 @@ public interface MessagingService {
   /**
    * Bind a queue to an existing exchange.
    * <p>
-   * If the given queue doesnt exist it will be created automatically.
+   * If the given queue doesn't exist it will be created automatically.
    *
    * @param queue's name.
    * @param exchange's name.
@@ -38,7 +38,7 @@ public interface MessagingService {
   /**
    * Bind a queue to an exchange with a specific routing key.
    * <p>
-   * If the given queue doesnt exist it will be created automatically.
+   * If the given queue doesn't exist it will be created automatically.
    *
    * @param queue's name.
    * @param exchange's name.

@@ -11,5 +11,5 @@ public class Message<T> {
 
   private final String exchange;
   private final T body;
-  private String routingKey;
+  private String routingKey = "";
 }
