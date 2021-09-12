@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.kryonite.service.message.Message;
+import org.kryonite.service.message.MessageCallback;
 import org.kryonite.service.mock.MockActiveMqConnectionFactory;
 import org.kryonite.service.model.Animal;
 import org.kryonite.service.model.Person;
@@ -18,6 +19,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.kryonite.service.DefaultMessagingService.DEFAULT_RETRY_COUNT;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
@@ -83,7 +85,7 @@ class DefaultMessagingServiceTest {
   }
 
   @Test
-  void shouldNotThrowErrorWhenQueueDoesSendAnotherBody() throws IOException, InterruptedException {
+  void shouldNotThrowError_WhenQueueDoesSendAnotherBody() throws IOException, InterruptedException {
     // Arrange
     String queue1 = "queue1";
     String queue2 = "queue2";
@@ -108,5 +110,67 @@ class DefaultMessagingServiceTest {
 
     // Assert
     assertEquals(2, receivedMessages.size());
+  }
+
+  @Test
+  void shouldResendMessage_WhenExceptionIsThrownOnTheConsumer() throws IOException, InterruptedException {
+    // Arrange
+    String queue = "queue";
+    String exchange = "exchange";
+
+    Person person = new Person("Tom", UUID.randomUUID(), 21, 12345.67);
+
+    testee.setupExchange(exchange, BuiltinExchangeType.DIRECT);
+    testee.bindQueueToExchange(queue, exchange);
+
+    List<Message<Person>> failedMessages = new ArrayList<>();
+    List<Message<Person>> receivedMessages = new ArrayList<>();
+    testee.startConsuming(queue, new MessageCallback<>() {
+      private int counter = 0;
+
+      @Override
+      public void messageReceived(Message<Person> message) {
+        counter++;
+        if (counter <= 1) {
+          failedMessages.add(message);
+          throw new IllegalArgumentException("Failed to consume message!");
+        }
+
+        receivedMessages.add(message);
+      }
+    }, Person.class);
+
+    // Act
+    testee.sendMessage(Message.create(exchange, person));
+    Thread.sleep(1000);
+
+    // Assert
+    assertEquals(1, receivedMessages.size());
+    assertEquals(1, failedMessages.size());
+  }
+
+  @Test
+  void shouldDeleteMessageAfterXRetries() throws IOException, InterruptedException {
+    // Arrange
+    String queue = "queue";
+    String exchange = "exchange";
+
+    Person person = new Person("Tom", UUID.randomUUID(), 21, 12345.67);
+
+    testee.setupExchange(exchange, BuiltinExchangeType.DIRECT);
+    testee.bindQueueToExchange(queue, exchange);
+
+    List<Message<Person>> failedMessages = new ArrayList<>();
+    testee.startConsuming(queue, message -> {
+      failedMessages.add(message);
+      throw new IllegalArgumentException("Failed to consume message!");
+    }, Person.class);
+
+    // Act
+    testee.sendMessage(Message.create(exchange, person));
+    Thread.sleep(1000);
+
+    // Assert
+    assertEquals(DEFAULT_RETRY_COUNT, failedMessages.size());
   }
 }
