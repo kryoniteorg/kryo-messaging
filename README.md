@@ -32,5 +32,5 @@ dependencies {
 ```
 ## Examples
 Examples can be found in the tests [here](src/test/java/org/kryonite/service/DefaultMessagingServiceTest.java) and the latest
-javadoc are published to:
+javadoc is published to:
 https://kryonitelabs.github.io/messaging/latest/
