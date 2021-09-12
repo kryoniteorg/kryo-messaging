@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.kryonite"
-version = "1.0.0"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     api("com.rabbitmq:amqp-client:5.13.1")
-    api("org.mongojack:mongojack:4.2.1")
+    api("com.fasterxml.jackson.core:jackson-databind:2.12.5")
 
     compileOnly("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
