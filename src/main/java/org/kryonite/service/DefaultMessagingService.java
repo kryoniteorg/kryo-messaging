@@ -11,12 +11,14 @@ import com.rabbitmq.client.Envelope;
 import lombok.extern.slf4j.Slf4j;
 import org.kryonite.api.ActiveMqConnectionFactory;
 import org.kryonite.api.MessagingService;
+import org.kryonite.service.message.InternalMessage;
 import org.kryonite.service.message.Message;
 import org.kryonite.service.message.MessageCallback;
 import org.kryonite.service.message.PublishMessageTask;
 import org.kryonite.util.CustomObjectMapper;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Timer;
@@ -26,10 +28,13 @@ import java.util.concurrent.TimeoutException;
 @Slf4j
 public class DefaultMessagingService implements MessagingService {
 
+  private static final String RETRY_HEADER = "x-retries-left";
+  private static final int DEFAULT_RETRY_COUNT = 5;
+
   private static final Map<String, Object> arguments = Map.of("x-queue-type", "quorum");
   private static final ObjectMapper objectMapper = CustomObjectMapper.create();
 
-  private final Queue<Message<?>> queue = new ConcurrentLinkedQueue<>();
+  private final Queue<InternalMessage<?>> queue = new ConcurrentLinkedQueue<>();
   private final Channel channel;
 
   public DefaultMessagingService(ActiveMqConnectionFactory connectionFactory) throws IOException, TimeoutException {
@@ -42,6 +47,10 @@ public class DefaultMessagingService implements MessagingService {
 
   @Override
   public void sendMessage(Message<?> message) {
+    sendMessage(InternalMessage.create(message, Collections.emptyMap()));
+  }
+
+  private void sendMessage(InternalMessage<?> message) {
     queue.add(message);
   }
 
@@ -85,11 +94,27 @@ public class DefaultMessagingService implements MessagingService {
     try {
       T body = objectMapper.readValue(delivery.getBody(), classOfCallback);
       String routingKey = envelope.getRoutingKey();
-      callback.messageReceived(Message.create(exchange, body, routingKey));
+      Message<T> message = Message.create(exchange, body, routingKey);
+      consumeMessage(delivery, callback, message);
 
       channel.basicAck(envelope.getDeliveryTag(), false);
     } catch (IOException exception) {
       log.error("Failed to consume message!", exception);
+    }
+  }
+
+  private <T> void consumeMessage(Delivery delivery, MessageCallback<T> callback, Message<T> message) {
+    try {
+      callback.messageReceived(message);
+    } catch (Exception exception) {
+      log.error("Could not consume message!", exception);
+      int retriesLeft = (Integer) delivery.getProperties().getHeaders()
+          .getOrDefault(RETRY_HEADER, DEFAULT_RETRY_COUNT) - 1;
+      if (retriesLeft <= 0) {
+        log.error("Dropping message {} because it failed {} times!", message, DEFAULT_RETRY_COUNT);
+      } else {
+        queue.add(InternalMessage.create(message, Map.of(RETRY_HEADER, retriesLeft)));
+      }
     }
   }
 }
