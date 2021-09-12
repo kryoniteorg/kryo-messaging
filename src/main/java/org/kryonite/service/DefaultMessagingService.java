@@ -83,7 +83,7 @@ public class DefaultMessagingService implements MessagingService {
         log.error("Consumer shutdown unexpectedly!", sig);
 
     channel.queueDeclare(queue, true, false, false, arguments);
-    channel.basicConsume(queue, false, deliverCallback, consumerShutdownSignalCallback);
+    channel.basicConsume(queue, true, deliverCallback, consumerShutdownSignalCallback);
   }
 
   private <T> void handleMessage(Delivery delivery,
@@ -100,8 +100,6 @@ public class DefaultMessagingService implements MessagingService {
       String routingKey = envelope.getRoutingKey();
       Message<T> message = Message.create(exchange, body, routingKey);
       consumeMessage(delivery, callback, message);
-
-      channel.basicAck(envelope.getDeliveryTag(), false);
     } catch (IOException exception) {
       log.error("Failed to consume message!", exception);
     }
