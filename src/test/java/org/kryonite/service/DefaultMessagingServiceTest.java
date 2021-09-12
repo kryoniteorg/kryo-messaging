@@ -147,4 +147,29 @@ class DefaultMessagingServiceTest {
     assertEquals(1, receivedMessages.size());
     assertEquals(1, failedMessages.size());
   }
+
+  @Test
+  void shouldDeleteMessageAfterXRetries() throws IOException, InterruptedException {
+    // Arrange
+    String queue = "queue";
+    String exchange = "exchange";
+
+    Person person = new Person("Tom", UUID.randomUUID(), 21, 12345.67);
+
+    testee.setupExchange(exchange, BuiltinExchangeType.DIRECT);
+    testee.bindQueueToExchange(queue, exchange);
+
+    List<Message<Person>> failedMessages = new ArrayList<>();
+    testee.startConsuming(queue, message -> {
+      failedMessages.add(message);
+      throw new IllegalArgumentException("Failed to consume message!");
+    }, Person.class);
+
+    // Act
+    testee.sendMessage(Message.create(exchange, person));
+    Thread.sleep(1_000);
+
+    // Assert
+    assertEquals(DefaultMessagingService.DEFAULT_RETRY_COUNT, failedMessages.size());
+  }
 }

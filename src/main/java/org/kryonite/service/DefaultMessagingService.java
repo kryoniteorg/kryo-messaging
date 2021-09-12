@@ -28,8 +28,8 @@ import java.util.concurrent.TimeoutException;
 @Slf4j
 public class DefaultMessagingService implements MessagingService {
 
-  private static final String RETRY_HEADER = "x-retries-left";
-  private static final int DEFAULT_RETRY_COUNT = 5;
+  protected static final String RETRY_HEADER = "x-retries-left";
+  protected static final int DEFAULT_RETRY_COUNT = 5;
 
   private static final Map<String, Object> arguments = Map.of("x-queue-type", "quorum");
   private static final ObjectMapper objectMapper = CustomObjectMapper.create();
