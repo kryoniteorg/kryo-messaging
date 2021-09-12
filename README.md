@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.kryonitelabs:messaging:1.1.0:all")
+    implementation("com.github.kryonitelabs:messaging:1.2.0:all")
 }
 ```
 
@@ -26,7 +26,7 @@ dependencies {
 <dependency>
   <groupId>com.github.kryonitelabs</groupId>
   <artifactId>messaging</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
   <classifier>all</classifier>
 </dependency>
 ```
