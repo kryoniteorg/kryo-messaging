@@ -143,7 +143,7 @@ class DefaultMessagingServiceTest {
 
     // Act
     testee.sendMessage(Message.create(exchange, person));
-    Thread.sleep(1_000);
+    Thread.sleep(RETRY_AFTER.toMillis() + 500);
 
     // Assert
     assertEquals(1, receivedMessages.size());
