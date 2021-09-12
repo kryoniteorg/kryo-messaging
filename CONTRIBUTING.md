@@ -23,7 +23,7 @@ Pull requests are the best way to propose changes to the codebase. We actively w
 In short, when you submit code changes, your submissions are understood to be under the same [GPL-3.0](https://choosealicense.com/licenses/gpl-3.0/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
 ## Report bugs using Github's issues
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](); it's that easy!
+We use GitHub issues to track public bugs. Report a bug by opening a new issue; it's that easy!
 
 ## License
 By contributing, you agree that your contributions will be licensed under its GPL-3.0 License.
