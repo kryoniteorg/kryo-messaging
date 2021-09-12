@@ -2,6 +2,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("org.sonarqube") version "3.3"
 }
 
 group = "org.kryonite"
@@ -36,6 +37,14 @@ java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
     withJavadocJar()
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "kryonitelabs_messaging")
+        property("sonar.organization", "kryonitelabs")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
 
 publishing {
