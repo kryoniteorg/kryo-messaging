@@ -20,7 +20,6 @@ import java.util.concurrent.TimeoutException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.kryonite.service.DefaultMessagingService.DEFAULT_RETRY_COUNT;
-import static org.kryonite.service.DefaultMessagingService.RETRY_AFTER;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
@@ -143,7 +142,7 @@ class DefaultMessagingServiceTest {
 
     // Act
     testee.sendMessage(Message.create(exchange, person));
-    Thread.sleep(RETRY_AFTER.toMillis() + 500);
+    Thread.sleep(1000);
 
     // Assert
     assertEquals(1, receivedMessages.size());
@@ -169,7 +168,7 @@ class DefaultMessagingServiceTest {
 
     // Act
     testee.sendMessage(Message.create(exchange, person));
-    Thread.sleep(DEFAULT_RETRY_COUNT * RETRY_AFTER.toMillis() + 500);
+    Thread.sleep(1000);
 
     // Assert
     assertEquals(DEFAULT_RETRY_COUNT, failedMessages.size());
