@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeoutException;
 
@@ -31,6 +32,7 @@ public class DefaultMessagingService implements MessagingService {
 
   protected static final String RETRY_HEADER = "x-retries-left";
   protected static final int DEFAULT_RETRY_COUNT = 5;
+  protected static final Duration RETRY_AFTER = Duration.ofSeconds(5);
 
   private static final Map<String, Object> arguments = Map.of(
       "x-queue-type", "quorum",
@@ -40,12 +42,13 @@ public class DefaultMessagingService implements MessagingService {
 
   private final Queue<InternalMessage<?>> queue = new ConcurrentLinkedQueue<>();
   private final Channel channel;
+  private final Timer timer;
 
   public DefaultMessagingService(ActiveMqConnectionFactory connectionFactory) throws IOException, TimeoutException {
     Connection connection = connectionFactory.createConnection();
     channel = connection.createChannel();
 
-    Timer timer = new Timer();
+    timer = new Timer(true);
     timer.scheduleAtFixedRate(new PublishMessageTask(queue, connection.createChannel()), 0, 50);
   }
 
@@ -115,7 +118,15 @@ public class DefaultMessagingService implements MessagingService {
       if (retriesLeft <= 0) {
         log.error("Dropping message {} because it failed {} times!", message, DEFAULT_RETRY_COUNT);
       } else {
-        queue.add(InternalMessage.create(message, Map.of(RETRY_HEADER, retriesLeft)));
+        timer.schedule(
+            new TimerTask() {
+              @Override
+              public void run() {
+                queue.add(InternalMessage.create(message, Map.of(RETRY_HEADER, retriesLeft)));
+              }
+            },
+            RETRY_AFTER.toMillis()
+        );
       }
     }
   }
