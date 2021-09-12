@@ -18,6 +18,7 @@ import org.kryonite.service.message.PublishMessageTask;
 import org.kryonite.util.CustomObjectMapper;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Queue;
@@ -31,7 +32,10 @@ public class DefaultMessagingService implements MessagingService {
   protected static final String RETRY_HEADER = "x-retries-left";
   protected static final int DEFAULT_RETRY_COUNT = 5;
 
-  private static final Map<String, Object> arguments = Map.of("x-queue-type", "quorum");
+  private static final Map<String, Object> arguments = Map.of(
+      "x-queue-type", "quorum",
+      "x-message-ttl", Duration.ofMinutes(10).getSeconds()
+  );
   private static final ObjectMapper objectMapper = CustomObjectMapper.create();
 
   private final Queue<InternalMessage<?>> queue = new ConcurrentLinkedQueue<>();
