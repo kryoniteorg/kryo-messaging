@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.kryonite.service.DefaultMessagingService.DEFAULT_RETRY_COUNT;
 
@@ -33,7 +35,7 @@ class DefaultMessagingServiceTest {
   }
 
   @Test
-  void shouldSendAndReceiveMessage() throws IOException, InterruptedException {
+  void shouldSendAndReceiveMessage() throws IOException {
     // Arrange
     String queue = "queue";
     String exchange = "exchange";
@@ -47,7 +49,9 @@ class DefaultMessagingServiceTest {
 
     // Act
     testee.sendMessage(Message.create(exchange, person, ""));
-    Thread.sleep(1_000);
+    await()
+        .atMost(1, TimeUnit.SECONDS)
+        .until(() -> receivedMessages.size() >= 1);
 
     // Assert
     assertEquals(1, receivedMessages.size());
@@ -55,7 +59,7 @@ class DefaultMessagingServiceTest {
   }
 
   @Test
-  void shouldSendAndReceiveMessageWithGivenRoutingKey() throws IOException, InterruptedException {
+  void shouldSendAndReceiveMessageWithGivenRoutingKey() throws IOException {
     // Arrange
     String queue1 = "queue1";
     String queue2 = "queue2";
@@ -77,7 +81,9 @@ class DefaultMessagingServiceTest {
     // Act
     testee.sendMessage(Message.create(exchange, person, routingKey1));
     testee.sendMessage(Message.create(exchange, animal, routingKey2));
-    Thread.sleep(1_000);
+    await()
+        .atMost(1, TimeUnit.SECONDS)
+        .until(() -> receivedMessages.size() >= 1);
 
     // Assert
     assertEquals(1, receivedMessages.size());
@@ -85,7 +91,7 @@ class DefaultMessagingServiceTest {
   }
 
   @Test
-  void shouldNotThrowError_WhenQueueDoesSendAnotherBody() throws IOException, InterruptedException {
+  void shouldNotThrowError_WhenQueueDoesSendAnotherBody() throws IOException {
     // Arrange
     String queue1 = "queue1";
     String queue2 = "queue2";
@@ -106,14 +112,16 @@ class DefaultMessagingServiceTest {
     // Act
     testee.sendMessage(Message.create(exchange, person, routingKey1));
     testee.sendMessage(Message.create(exchange, animal, routingKey1));
-    Thread.sleep(1_000);
+    await()
+        .atMost(1, TimeUnit.SECONDS)
+        .until(() -> receivedMessages.size() >= 2);
 
     // Assert
     assertEquals(2, receivedMessages.size());
   }
 
   @Test
-  void shouldResendMessage_WhenExceptionIsThrownOnTheConsumer() throws IOException, InterruptedException {
+  void shouldResendMessage_WhenExceptionIsThrownOnTheConsumer() throws IOException {
     // Arrange
     String queue = "queue";
     String exchange = "exchange";
@@ -142,7 +150,9 @@ class DefaultMessagingServiceTest {
 
     // Act
     testee.sendMessage(Message.create(exchange, person));
-    Thread.sleep(1000);
+    await()
+        .atMost(1, TimeUnit.SECONDS)
+        .until(() -> receivedMessages.size() >= 1 && failedMessages.size() >= 1);
 
     // Assert
     assertEquals(1, receivedMessages.size());
@@ -150,7 +160,7 @@ class DefaultMessagingServiceTest {
   }
 
   @Test
-  void shouldDeleteMessageAfterXRetries() throws IOException, InterruptedException {
+  void shouldDeleteMessageAfterXRetries() throws IOException {
     // Arrange
     String queue = "queue";
     String exchange = "exchange";
@@ -168,7 +178,9 @@ class DefaultMessagingServiceTest {
 
     // Act
     testee.sendMessage(Message.create(exchange, person));
-    Thread.sleep(1000);
+    await()
+        .atMost(1, TimeUnit.SECONDS)
+        .until(() -> failedMessages.size() >= DEFAULT_RETRY_COUNT);
 
     // Assert
     assertEquals(DEFAULT_RETRY_COUNT, failedMessages.size());

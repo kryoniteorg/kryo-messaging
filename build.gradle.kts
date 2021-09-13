@@ -25,6 +25,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.0")
     testImplementation("org.mockito:mockito-junit-jupiter:3.12.4")
+    testImplementation("org.awaitility:awaitility:4.1.0")
 
     testCompileOnly("org.projectlombok:lombok:1.18.20")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.20")
