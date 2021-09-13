@@ -41,6 +41,7 @@ public class DefaultMessagingService implements MessagingService {
   private final Queue<InternalMessage<?>> queue = new ConcurrentLinkedQueue<>();
   private final Channel channel;
 
+  @SuppressWarnings("squid:S2095")
   public DefaultMessagingService(ActiveMqConnectionFactory connectionFactory) throws IOException, TimeoutException {
     Connection connection = connectionFactory.createConnection();
     channel = connection.createChannel();
