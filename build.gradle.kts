@@ -3,6 +3,7 @@ plugins {
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("org.sonarqube") version "3.3"
+    jacoco
 }
 
 group = "org.kryonite"
@@ -30,6 +31,7 @@ dependencies {
 }
 
 tasks.test {
+    finalizedBy("jacocoTestReport")
     useJUnitPlatform()
 }
 
@@ -37,6 +39,12 @@ java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
     withJavadocJar()
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(true)
+    }
 }
 
 sonarqube {
