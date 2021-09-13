@@ -4,7 +4,7 @@ submitting a pull request.
 
 Dependency Upgrades
 
-Please do not open a pull request for a dependency upgrade. We have a Dependabot for such upgrades
+Please do not open a pull request for a dependency upgrade. We have Dependabot for such upgrades
 that we prefer to use. However, if the upgrade is more involved (such as requiring
 changes for removed or deprecated API) your pull request is welcome.
 
