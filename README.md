@@ -1,4 +1,9 @@
 # Messaging library
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_messaging&metric=alert_status)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_messaging&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_messaging&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_messaging&metric=security_rating)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
+
 This library contains a simple `MessagingService` which simplifies the setup and work
 with RabbitMQ and the AMQP protocol.
 
@@ -10,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.kryonitelabs:messaging:1.2.0")
+    implementation("com.github.kryonitelabs:messaging:1.2.1")
 }
 ```
 
