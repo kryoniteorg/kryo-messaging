@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
       - name: Cache gradle related files 🗄️
         uses: actions/cache@v2.1.6
         with:
@@ -37,6 +39,12 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Cache SonarCloud packages 🗄️
+        uses: actions/cache@v2.1.6
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
       - name: Set up JDK 11 ⚙️
         uses: actions/setup-java@v2.3.0
         with:
@@ -44,35 +52,6 @@ jobs:
           distribution: 'adopt'
       - name: Running tests 🧪
         run: ./gradlew test
-  sonarcloud:
-    runs-on: ubuntu-latest
-    needs: build
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
-      - name: Cache SonarCloud packages 🗄️
-        uses: actions/cache@v2.1.6
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache gradle related files 🗄️
-        uses: actions/cache@v2.1.6
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-      - name: Set up JDK 11 ⚙️
-        uses: actions/setup-java@v2.3.0
-        with:
-          java-version: '11'
-          distribution: 'adopt'
       - name: Running analysis in SonarCloud 📊
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

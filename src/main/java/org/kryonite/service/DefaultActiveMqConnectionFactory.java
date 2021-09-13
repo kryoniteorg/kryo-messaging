@@ -3,6 +3,7 @@ package org.kryonite.service;
 import com.rabbitmq.client.Address;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import lombok.AccessLevel;
 import lombok.Getter;
 import org.kryonite.api.ActiveMqConnectionFactory;
 
@@ -14,6 +15,7 @@ import java.util.concurrent.TimeoutException;
 public class DefaultActiveMqConnectionFactory implements ActiveMqConnectionFactory {
 
   private final ConnectionFactory connectionFactory;
+  @Getter(AccessLevel.NONE)
   private final List<Address> addresses;
 
   public DefaultActiveMqConnectionFactory(List<Address> addresses, String username, String password) {
