@@ -18,6 +18,7 @@ jobs:
       - name: Deploy latest docs 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
+          repository-name: kryonitelabs/docs
           branch: main
           folder: static/javadoc/messaging
           git-config-name: Kryonite Labs Bot
@@ -26,6 +27,7 @@ jobs:
       - name: Deploy versioned docs 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
+          repository-name: kryonitelabs/docs
           branch: main
           folder: static/javadoc/messaging
           git-config-name: Kryonite Labs Bot
