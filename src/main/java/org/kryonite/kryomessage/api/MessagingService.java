@@ -1,8 +1,8 @@
-package org.kryonite.api;
+package org.kryonite.kryomessage.api;
 
 import com.rabbitmq.client.BuiltinExchangeType;
-import org.kryonite.service.message.Message;
-import org.kryonite.service.message.MessageCallback;
+import org.kryonite.kryomessage.service.message.Message;
+import org.kryonite.kryomessage.service.message.MessageCallback;
 
 import java.io.IOException;
 

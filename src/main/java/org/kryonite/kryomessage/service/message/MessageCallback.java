@@ -1,4 +1,4 @@
-package org.kryonite.service.message;
+package org.kryonite.kryomessage.service.message;
 
 @FunctionalInterface
 public interface MessageCallback<T> {

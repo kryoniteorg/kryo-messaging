@@ -1,4 +1,4 @@
-# Messaging library
+# kryo-message
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_messaging&metric=alert_status)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_messaging&metric=coverage)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_messaging&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
