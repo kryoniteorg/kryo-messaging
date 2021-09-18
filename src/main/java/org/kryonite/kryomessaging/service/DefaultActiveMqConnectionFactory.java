@@ -1,11 +1,11 @@
-package org.kryonite.kryomessage.service;
+package org.kryonite.kryomessaging.service;
 
 import com.rabbitmq.client.Address;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.kryonite.kryomessage.api.ActiveMqConnectionFactory;
+import org.kryonite.kryomessaging.api.ActiveMqConnectionFactory;
 
 import java.io.IOException;
 import java.util.List;

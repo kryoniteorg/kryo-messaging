@@ -1,4 +1,4 @@
-package org.kryonite.kryomessage.service;
+package org.kryonite.kryomessaging.service;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import lombok.extern.slf4j.Slf4j;
@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kryonite.kryomessage.service.message.Message;
-import org.kryonite.kryomessage.service.message.MessageCallback;
-import org.kryonite.kryomessage.service.mock.MockActiveMqConnectionFactory;
-import org.kryonite.kryomessage.service.model.Animal;
-import org.kryonite.kryomessage.service.model.Person;
+import org.kryonite.kryomessaging.service.message.Message;
+import org.kryonite.kryomessaging.service.message.MessageCallback;
+import org.kryonite.kryomessaging.service.mock.MockActiveMqConnectionFactory;
+import org.kryonite.kryomessaging.service.model.Animal;
+import org.kryonite.kryomessaging.service.model.Person;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;

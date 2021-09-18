@@ -1,9 +1,9 @@
-package org.kryonite.kryomessage.service;
+package org.kryonite.kryomessaging.service;
 
 import com.rabbitmq.client.Address;
 import com.rabbitmq.client.ConnectionFactory;
 import org.junit.jupiter.api.Test;
-import org.kryonite.kryomessage.api.ActiveMqConnectionFactory;
+import org.kryonite.kryomessaging.api.ActiveMqConnectionFactory;
 
 import java.util.List;
 

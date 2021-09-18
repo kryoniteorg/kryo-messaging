@@ -1,4 +1,4 @@
-package org.kryonite.kryomessage.service;
+package org.kryonite.kryomessaging.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.BuiltinExchangeType;
@@ -9,13 +9,13 @@ import com.rabbitmq.client.DeliverCallback;
 import com.rabbitmq.client.Delivery;
 import com.rabbitmq.client.Envelope;
 import lombok.extern.slf4j.Slf4j;
-import org.kryonite.kryomessage.api.ActiveMqConnectionFactory;
-import org.kryonite.kryomessage.api.MessagingService;
-import org.kryonite.kryomessage.service.message.InternalMessage;
-import org.kryonite.kryomessage.service.message.Message;
-import org.kryonite.kryomessage.service.message.MessageCallback;
-import org.kryonite.kryomessage.service.message.PublishMessageTask;
-import org.kryonite.kryomessage.util.CustomObjectMapper;
+import org.kryonite.kryomessaging.api.ActiveMqConnectionFactory;
+import org.kryonite.kryomessaging.api.MessagingService;
+import org.kryonite.kryomessaging.service.message.InternalMessage;
+import org.kryonite.kryomessaging.service.message.Message;
+import org.kryonite.kryomessaging.service.message.MessageCallback;
+import org.kryonite.kryomessaging.service.message.PublishMessageTask;
+import org.kryonite.kryomessaging.util.CustomObjectMapper;
 
 import java.io.IOException;
 import java.time.Duration;

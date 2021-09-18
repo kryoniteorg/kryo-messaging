@@ -1,4 +1,4 @@
-package org.kryonite.kryomessage.util;
+package org.kryonite.kryomessaging.util;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;

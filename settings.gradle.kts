@@ -1,1 +1,1 @@
-rootProject.name = "kryo-message"
+rootProject.name = "kryo-messaging"

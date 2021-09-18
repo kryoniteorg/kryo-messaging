@@ -1,4 +1,4 @@
-package org.kryonite.kryomessage.service.message;
+package org.kryonite.kryomessaging.service.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

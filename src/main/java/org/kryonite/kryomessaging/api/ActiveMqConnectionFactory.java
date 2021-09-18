@@ -1,4 +1,4 @@
-package org.kryonite.kryomessage.api;
+package org.kryonite.kryomessaging.api;
 
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
