@@ -50,7 +50,7 @@ tasks.jacocoTestReport {
 
 sonarqube {
     properties {
-        property("sonar.projectKey", "kryonitelabs_messaging")
+        property("sonar.projectKey", "kryonitelabs_kryo-messaging")
         property("sonar.organization", "kryonitelabs")
         property("sonar.host.url", "https://sonarcloud.io")
     }
