@@ -1,15 +1,14 @@
-package org.kryonite.service;
+package org.kryonite.kryomessaging.service;
 
 import com.rabbitmq.client.Address;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import lombok.AccessLevel;
-import lombok.Getter;
-import org.kryonite.api.ActiveMqConnectionFactory;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+import lombok.AccessLevel;
+import lombok.Getter;
+import org.kryonite.kryomessaging.api.ActiveMqConnectionFactory;
 
 @Getter
 public class DefaultActiveMqConnectionFactory implements ActiveMqConnectionFactory {

@@ -1,27 +1,26 @@
-package org.kryonite.service;
+package org.kryonite.kryomessaging.service;
+
+import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.kryonite.kryomessaging.service.DefaultMessagingService.DEFAULT_RETRY_COUNT;
 
 import com.rabbitmq.client.BuiltinExchangeType;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.kryonite.service.message.Message;
-import org.kryonite.service.message.MessageCallback;
-import org.kryonite.service.mock.MockActiveMqConnectionFactory;
-import org.kryonite.service.model.Animal;
-import org.kryonite.service.model.Person;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
-import static org.awaitility.Awaitility.await;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.kryonite.service.DefaultMessagingService.DEFAULT_RETRY_COUNT;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.kryonite.kryomessaging.service.message.Message;
+import org.kryonite.kryomessaging.service.message.MessageCallback;
+import org.kryonite.kryomessaging.service.mock.MockActiveMqConnectionFactory;
+import org.kryonite.kryomessaging.service.model.Animal;
+import org.kryonite.kryomessaging.service.model.Person;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
@@ -160,7 +159,7 @@ class DefaultMessagingServiceTest {
   }
 
   @Test
-  void shouldDeleteMessageAfterXRetries() throws IOException {
+  void shouldDeleteMessageAfterRetries() throws IOException {
     // Arrange
     String queue = "queue";
     String exchange = "exchange";

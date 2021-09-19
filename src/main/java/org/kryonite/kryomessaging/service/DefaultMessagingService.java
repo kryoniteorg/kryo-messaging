@@ -1,4 +1,4 @@
-package org.kryonite.service;
+package org.kryonite.kryomessaging.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.BuiltinExchangeType;
@@ -8,15 +8,6 @@ import com.rabbitmq.client.ConsumerShutdownSignalCallback;
 import com.rabbitmq.client.DeliverCallback;
 import com.rabbitmq.client.Delivery;
 import com.rabbitmq.client.Envelope;
-import lombok.extern.slf4j.Slf4j;
-import org.kryonite.api.ActiveMqConnectionFactory;
-import org.kryonite.api.MessagingService;
-import org.kryonite.service.message.InternalMessage;
-import org.kryonite.service.message.Message;
-import org.kryonite.service.message.MessageCallback;
-import org.kryonite.service.message.PublishMessageTask;
-import org.kryonite.util.CustomObjectMapper;
-
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
@@ -25,6 +16,14 @@ import java.util.Queue;
 import java.util.Timer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeoutException;
+import lombok.extern.slf4j.Slf4j;
+import org.kryonite.kryomessaging.api.ActiveMqConnectionFactory;
+import org.kryonite.kryomessaging.api.MessagingService;
+import org.kryonite.kryomessaging.service.message.InternalMessage;
+import org.kryonite.kryomessaging.service.message.Message;
+import org.kryonite.kryomessaging.service.message.MessageCallback;
+import org.kryonite.kryomessaging.service.message.PublishMessageTask;
+import org.kryonite.kryomessaging.util.CustomObjectMapper;
 
 @Slf4j
 public class DefaultMessagingService implements MessagingService {

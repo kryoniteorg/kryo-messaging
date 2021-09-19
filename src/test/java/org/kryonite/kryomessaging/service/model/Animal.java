@@ -1,4 +1,4 @@
-package org.kryonite.service.model;
+package org.kryonite.kryomessaging.service.model;
 
 import lombok.Data;
 

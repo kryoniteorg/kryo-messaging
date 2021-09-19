@@ -1,13 +1,12 @@
-package org.kryonite.service;
+package org.kryonite.kryomessaging.service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.rabbitmq.client.Address;
 import com.rabbitmq.client.ConnectionFactory;
-import org.junit.jupiter.api.Test;
-import org.kryonite.api.ActiveMqConnectionFactory;
-
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.kryonite.kryomessaging.api.ActiveMqConnectionFactory;
 
 class DefaultActiveMqConnectionFactoryTest {
 

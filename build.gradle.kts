@@ -1,13 +1,14 @@
 plugins {
     `java-library`
     `maven-publish`
+    `checkstyle`
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("org.sonarqube") version "3.3"
     jacoco
 }
 
 group = "org.kryonite"
-version = "1.2.1"
+version = "1.3.0"
 
 repositories {
     mavenCentral()
@@ -48,9 +49,14 @@ tasks.jacocoTestReport {
     }
 }
 
+checkstyle {
+    toolVersion = "9.0"
+    config = project.resources.text.fromUri("https://kryonite.org/checkstyle.xml")
+}
+
 sonarqube {
     properties {
-        property("sonar.projectKey", "kryonitelabs_messaging")
+        property("sonar.projectKey", "kryonitelabs_kryo-messaging")
         property("sonar.organization", "kryonitelabs")
         property("sonar.host.url", "https://sonarcloud.io")
     }
