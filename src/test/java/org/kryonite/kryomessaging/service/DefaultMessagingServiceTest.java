@@ -159,7 +159,7 @@ class DefaultMessagingServiceTest {
   }
 
   @Test
-  void shouldDeleteMessageAfterXRetries() throws IOException {
+  void shouldDeleteMessageAfterRetries() throws IOException {
     // Arrange
     String queue = "queue";
     String exchange = "exchange";

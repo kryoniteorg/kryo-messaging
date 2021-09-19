@@ -3,13 +3,12 @@ package org.kryonite.kryomessaging.service.message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.kryonite.kryomessaging.util.CustomObjectMapper;
-
 import java.io.IOException;
 import java.util.Queue;
 import java.util.TimerTask;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.kryonite.kryomessaging.util.CustomObjectMapper;
 
 @Slf4j
 @RequiredArgsConstructor

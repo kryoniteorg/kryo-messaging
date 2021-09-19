@@ -1,8 +1,7 @@
 package org.kryonite.kryomessaging.service.model;
 
-import lombok.Data;
-
 import java.util.UUID;
+import lombok.Data;
 
 @Data
 public class Person {

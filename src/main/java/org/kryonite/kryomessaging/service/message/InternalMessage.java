@@ -1,8 +1,7 @@
 package org.kryonite.kryomessaging.service.message;
 
-import lombok.Data;
-
 import java.util.Map;
+import lombok.Data;
 
 @Data(staticConstructor = "create")
 public class InternalMessage<T> {
