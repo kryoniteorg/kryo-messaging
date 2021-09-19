@@ -1,8 +1,17 @@
 package org.kryonite.kryomessaging.service;
 
+import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.kryonite.kryomessaging.service.DefaultMessagingService.DEFAULT_RETRY_COUNT;
+
 import com.rabbitmq.client.BuiltinExchangeType;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,16 +21,6 @@ import org.kryonite.kryomessaging.service.mock.MockActiveMqConnectionFactory;
 import org.kryonite.kryomessaging.service.model.Animal;
 import org.kryonite.kryomessaging.service.model.Person;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import static org.awaitility.Awaitility.await;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
@@ -180,9 +179,9 @@ class DefaultMessagingServiceTest {
     testee.sendMessage(Message.create(exchange, person));
     await()
         .atMost(1, TimeUnit.SECONDS)
-        .until(() -> failedMessages.size() >= DefaultMessagingService.DEFAULT_RETRY_COUNT);
+        .until(() -> failedMessages.size() >= DEFAULT_RETRY_COUNT);
 
     // Assert
-    Assertions.assertEquals(DefaultMessagingService.DEFAULT_RETRY_COUNT, failedMessages.size());
+    assertEquals(DEFAULT_RETRY_COUNT, failedMessages.size());
   }
 }
