@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.kryonite.api"},{"l":"org.kryonite.service"},{"l":"org.kryonite.service.message"},{"l":"org.kryonite.util"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.kryonite.kryomessaging.api"},{"l":"org.kryonite.kryomessaging.service"},{"l":"org.kryonite.kryomessaging.service.message"},{"l":"org.kryonite.kryomessaging.util"}]

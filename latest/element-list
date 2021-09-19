@@ -1,4 +1,4 @@
-org.kryonite.api
-org.kryonite.service
-org.kryonite.service.message
-org.kryonite.util
+org.kryonite.kryomessaging.api
+org.kryonite.kryomessaging.service
+org.kryonite.kryomessaging.service.message
+org.kryonite.kryomessaging.util
