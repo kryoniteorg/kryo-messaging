@@ -23,7 +23,7 @@ dependencies {
 
     testImplementation("com.github.fridujo:rabbitmq-mock:1.1.1")
     testImplementation("org.slf4j:slf4j-simple:1.7.32")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.0")
     testImplementation("org.mockito:mockito-junit-jupiter:3.12.4")
     testImplementation("org.awaitility:awaitility:4.1.0")
