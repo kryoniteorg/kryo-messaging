@@ -1,10 +1,10 @@
 plugins {
     `java-library`
     `maven-publish`
-    `checkstyle`
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("org.sonarqube") version "3.3"
     jacoco
+    checkstyle
 }
 
 group = "org.kryonite"
