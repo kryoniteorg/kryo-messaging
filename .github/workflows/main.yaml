@@ -39,12 +39,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Cache SonarCloud packages 🗄️
-        uses: actions/cache@v2.1.6
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
       - name: Set up JDK 11 ⚙️
         uses: actions/setup-java@v2.3.1
         with:
@@ -52,11 +46,6 @@ jobs:
           distribution: 'adopt'
       - name: Running Checkstyle 🧪
         run: ./gradlew checkstyleMain checkstyleTest
-      - name: Running analysis in SonarCloud 📊
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonarqube
   test:
     runs-on: ubuntu-latest
     needs: build
@@ -74,6 +63,12 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Cache SonarCloud packages 🗄️
+        uses: actions/cache@v2.1.6
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
       - name: Set up JDK 11 ⚙️
         uses: actions/setup-java@v2.3.1
         with:
@@ -81,3 +76,8 @@ jobs:
           distribution: 'adopt'
       - name: Running tests 🧪
         run: ./gradlew test
+      - name: Running analysis in SonarCloud 📊
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonarqube
