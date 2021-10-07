@@ -18,7 +18,7 @@ dependencies {
     api("com.rabbitmq:amqp-client:5.13.1")
     api("com.fasterxml.jackson.core:jackson-databind:2.13.0")
 
-    compileOnly("org.projectlombok:lombok:1.18.20")
+    compileOnly("org.projectlombok:lombok:1.18.22")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
     testImplementation("com.github.fridujo:rabbitmq-mock:1.1.1")
