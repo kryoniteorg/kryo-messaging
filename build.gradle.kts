@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    api("com.rabbitmq:amqp-client:5.13.1")
+    api("com.rabbitmq:amqp-client:5.14.0")
     api("com.fasterxml.jackson.core:jackson-databind:2.13.0")
 
     compileOnly("org.projectlombok:lombok:1.18.22")
