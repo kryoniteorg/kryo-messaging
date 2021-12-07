@@ -26,7 +26,7 @@ dependencies {
     testImplementation("org.slf4j:slf4j-simple:1.7.32")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.mockito:mockito-junit-jupiter:4.0.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.1.0")
     testImplementation("org.awaitility:awaitility:4.1.1")
 
     testCompileOnly("org.projectlombok:lombok:1.18.20")
