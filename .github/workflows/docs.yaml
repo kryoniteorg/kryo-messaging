@@ -16,7 +16,7 @@ jobs:
         run: echo "##[set-output name=release;]$(echo ${GITHUB_REF#refs/tags/})"
         id: extract_release
       - name: Deploy latest docs 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.7
+        uses: JamesIves/github-pages-deploy-action@4.1.8
         with:
           branch: docs
           folder: build/docs/javadoc
@@ -24,7 +24,7 @@ jobs:
           git-config-email: docs@kryonite.org
           target-folder: latest
       - name: Deploy versioned docs 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.7
+        uses: JamesIves/github-pages-deploy-action@4.1.8
         with:
           branch: docs
           folder: build/docs/javadoc
