@@ -1,0 +1,10 @@
+name: Compile and deploy docs 📚
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  compile-and-deploy-docs:
+    uses: kryonitelabs/.github/.github/workflows/release-docs-to-pages.yaml@main
