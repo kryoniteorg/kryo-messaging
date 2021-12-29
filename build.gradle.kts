@@ -29,8 +29,8 @@ dependencies {
     testImplementation("org.mockito:mockito-junit-jupiter:4.2.0")
     testImplementation("org.awaitility:awaitility:4.1.1")
 
-    testCompileOnly("org.projectlombok:lombok:1.18.20")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.20")
+    testCompileOnly("org.projectlombok:lombok:1.18.22")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
 }
 
 tasks.test {
@@ -39,8 +39,8 @@ tasks.test {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
     withJavadocJar()
 }
 
@@ -51,7 +51,7 @@ tasks.jacocoTestReport {
 }
 
 checkstyle {
-    toolVersion = "9.0"
+    toolVersion = "9.2.1"
     config = project.resources.text.fromUri("https://kryonite.org/checkstyle.xml")
 }
 
