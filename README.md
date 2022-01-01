@@ -1,9 +1,9 @@
 # kryo-messaging
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=alert_status)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=coverage)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=security_rating)](https://sonarcloud.io/dashboard?id=kryonitelabs_messaging)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-messaging)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=coverage)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-messaging)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-messaging)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-messaging)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-messaging&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-messaging)
 
 This library contains a simple `MessagingService` which simplifies the setup and work
 with RabbitMQ and the AMQP protocol.
@@ -36,6 +36,6 @@ dependencies {
 </dependency>
 ```
 ## Examples
-Examples can be found in the tests [here](src/test/java/org/kryonite/service/DefaultMessagingServiceTest.java) and the latest
+Examples can be found in the tests [here](src/test/java/org/kryonite/kryomessaging/service/DefaultMessagingServiceTest.java) and the latest
 javadoc is published to:
 https://kryonitelabs.github.io/kryo-messaging/latest/
