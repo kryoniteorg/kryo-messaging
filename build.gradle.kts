@@ -16,13 +16,15 @@ repositories {
 }
 
 dependencies {
+    val junitVersion = "5.8.2"
+
     api("com.rabbitmq:amqp-client:5.14.0")
     api("com.fasterxml.jackson.core:jackson-databind:2.13.1")
 
     testImplementation("com.github.fridujo:rabbitmq-mock:1.1.1")
     testImplementation("org.slf4j:slf4j-simple:1.7.32")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     testImplementation("org.mockito:mockito-junit-jupiter:4.2.0")
     testImplementation("org.awaitility:awaitility:4.1.1")
 }
