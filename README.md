@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.kryonitelabs:kryo-messaging:1.3.0")
+    implementation("com.github.kryonitelabs:kryo-messaging:2.0.1")
 }
 ```
 
@@ -32,7 +32,7 @@ dependencies {
 <dependency>
   <groupId>com.github.kryonitelabs</groupId>
   <artifactId>kryo-messaging</artifactId>
-  <version>1.3.0</version>
+  <version>2.0.1</version>
 </dependency>
 ```
 ## Examples
