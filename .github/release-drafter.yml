@@ -4,13 +4,18 @@ categories:
   - title: '🚀 Features'
     labels:
       - 'enhancement'
+      - 'feature'
   - title: '🐛 Bug Fixes'
     labels:
       - 'bug'
+      - 'bugfix'
+  - title: '🔑 Security'
+    label:
+      - 'security'
   - title: '🧰 Maintenance'
     label:
       - 'chore'
-      - 'documentation'
+      - 'docs'
       - 'dependencies'
 exclude-labels:
   - 'skip-changelog'
