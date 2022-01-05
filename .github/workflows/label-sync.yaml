@@ -2,7 +2,7 @@ name: Sync labels 🏷️
 
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 21 * * *'
 
 jobs:
   build-and-test:
