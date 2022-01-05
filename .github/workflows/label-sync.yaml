@@ -1,0 +1,9 @@
+name: Sync labels 🏷️
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  build-and-test:
+    uses: kryonitelabs/.github/.github/workflows/label-sync.yaml@main
