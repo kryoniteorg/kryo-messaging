@@ -32,6 +32,7 @@ autolabeler:
   - label: 'bug'
     branch:
       - '/fix\/.+/'
+      - '/bugfix\/.+/'
     title:
       - '/fix/i'
   - label: 'enhancement'
