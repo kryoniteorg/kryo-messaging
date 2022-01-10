@@ -7,4 +7,4 @@ on:
 
 jobs:
   compile-and-deploy-docs:
-    uses: kryonitelabs/.github/.github/workflows/release-docs-to-pages.yaml@main
+    uses: kryoniteorg/.github/.github/workflows/release-docs-to-pages.yaml@main

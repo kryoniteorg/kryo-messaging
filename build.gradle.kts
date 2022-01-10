@@ -53,8 +53,8 @@ checkstyle {
 
 sonarqube {
     properties {
-        property("sonar.projectKey", "kryonitelabs_kryo-messaging")
-        property("sonar.organization", "kryonitelabs")
+        property("sonar.projectKey", "kryoniteorg_kryo-messaging")
+        property("sonar.organization", "kryoniteorg")
         property("sonar.host.url", "https://sonarcloud.io")
     }
 }
