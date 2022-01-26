@@ -25,7 +25,7 @@ dependencies {
     testImplementation("org.slf4j:slf4j-simple:1.7.35")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    testImplementation("org.mockito:mockito-junit-jupiter:4.3.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.3.1")
     testImplementation("org.awaitility:awaitility:4.1.1")
 }
 
