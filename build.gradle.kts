@@ -22,7 +22,7 @@ dependencies {
     api("com.fasterxml.jackson.core:jackson-databind:2.13.3")
 
     testImplementation("com.github.fridujo:rabbitmq-mock:1.1.1")
-    testImplementation("org.slf4j:slf4j-simple:1.7.36")
+    testImplementation("org.slf4j:slf4j-simple:2.0.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     testImplementation("org.mockito:mockito-junit-jupiter:4.6.1")
