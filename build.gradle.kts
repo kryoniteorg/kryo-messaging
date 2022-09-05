@@ -19,7 +19,7 @@ dependencies {
     val junitVersion = "5.9.0"
 
     api("com.rabbitmq:amqp-client:5.15.0")
-    api("com.fasterxml.jackson.core:jackson-databind:2.13.3")
+    api("com.fasterxml.jackson.core:jackson-databind:2.13.4")
 
     testImplementation("com.github.fridujo:rabbitmq-mock:1.1.1")
     testImplementation("org.slf4j:slf4j-simple:2.0.0")
