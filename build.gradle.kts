@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    val junitVersion = "5.9.0"
+    val junitVersion = "5.9.1"
 
     api("com.rabbitmq:amqp-client:5.15.0")
     api("com.fasterxml.jackson.core:jackson-databind:2.13.4")
